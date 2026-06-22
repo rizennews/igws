@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  role      String   @default("ADMIN") // "SUPER_ADMIN" or "ADMIN"
+  createdAt DateTime @default(now())
+}
+
+model Form {
+  id           String   @id @default(uuid())
+  slug         String   @unique
+  title        String
+  description  String?
+  schema       String   // JSON stringified array of field definitions
+  isActive     Boolean  @default(true)
+  endDate      DateTime? // Optional auto-expiration date
+  views        Int      @default(0)
+  dropoffStats String?  // JSON stringified key-value pairs representing drop-offs at specific steps
+  createdAt    DateTime @default(now())
+  submissions  Submission[]
+}
+
+model Submission {
+  id        String   @id @default(uuid())
+  formId    String
+  form      Form     @relation(fields: [formId], references: [id])
+  data      String   // JSON stringified key-value pairs
+  fileKeys  String   @default("[]") // JSON stringified array of UploadThing file keys
+  createdAt DateTime @default(now())
+}
