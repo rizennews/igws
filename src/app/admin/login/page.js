@@ -34,11 +34,11 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#E5E5E5] p-4 font-jost">
-      <div className="w-full max-w-[1200px] bg-white rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl h-[800px] max-h-[90vh]">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2b3a55] to-[#1e293b] p-4 sm:p-8 font-jost">
+      <div className="w-full max-w-[1100px] bg-white rounded-[40px] p-2 sm:p-3 flex flex-col md:flex-row shadow-2xl min-h-[700px]">
         
         {/* Left Side - Graphic & Text */}
-        <div className="hidden md:block w-full md:w-[45%] shrink-0 relative bg-navy overflow-hidden">
+        <div className="hidden md:block w-full md:w-[45%] relative bg-navy rounded-[32px] overflow-hidden shrink-0">
           <Image 
             src="/login-image.jpg" 
             alt="Student" 
@@ -49,62 +49,66 @@ export default function AdminLogin() {
           />
           
           {/* Glassmorphic Overlay at bottom */}
-          <div className="absolute bottom-0 left-0 w-full p-10 bg-black/30 backdrop-blur-md border-t border-white/20 text-white transform transition-transform duration-500 ease-in-out">
-            <h2 className="text-[28px] font-bold leading-tight mb-3 drop-shadow-md">
+          <div className="absolute bottom-0 left-0 w-full p-8 bg-black/40 backdrop-blur-md text-white transform transition-transform duration-500 ease-in-out">
+            <h2 className="text-[26px] font-bold leading-tight mb-3 drop-shadow-md">
               Nurturing Character, <br /> Raising Change-Makers
             </h2>
-            <p className="text-[14px] text-white/90 leading-relaxed font-medium drop-shadow-sm max-w-[90%]">
-              Streamlining the school's administrative workflow with intuitive digital tools, so educators can focus on what matters most.
+            <p className="text-[14px] text-white/90 leading-relaxed font-medium drop-shadow-sm">
+              Streamlining the school's administrative workflow with intuitive digital tools.
             </p>
           </div>
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full md:w-[55%] bg-white relative z-20 flex flex-col justify-between p-10 sm:p-16">
+        <div className="w-full md:w-[55%] flex flex-col p-8 sm:p-12 lg:px-20 relative">
           
           {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Image src="/igws.png" alt="iGenius Kids World" width={40} height={40} className="rounded-md" />
-              <span className="font-bold text-navy text-xl">iGenius Kids World</span>
-            </div>
+          <div className="flex items-center gap-3 mb-10">
+            <Image src="/igws.png" alt="iGenius Kids World" width={36} height={36} className="rounded-md" />
+            <span className="font-bold text-navy text-xl">iGenius Kids World</span>
           </div>
 
           {/* Form Content */}
-          <div className="max-w-[420px] w-full mx-auto my-auto">
-            <h2 className="text-[40px] font-medium text-navy mb-10 tracking-tight">Sign In</h2>
+          <div className="w-full flex-grow flex flex-col justify-center">
+            <h2 className="text-[36px] font-medium text-navy mb-8 tracking-tight">Sign In</h2>
             
-            <form onSubmit={handleLogin} className="flex flex-col gap-5">
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value={username} 
-                  onChange={e => setUsername(e.target.value)}
-                  placeholder="Username"
-                  className="w-full p-4 pl-5 rounded-full border border-custom-border text-[15px] focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-all placeholder:text-muted"
-                  required
-                />
+            <form onSubmit={handleLogin} className="flex flex-col gap-6">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-navy ml-2">Username</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={username} 
+                    onChange={e => setUsername(e.target.value)}
+                    placeholder="Enter your username"
+                    className="w-full p-4 pl-5 rounded-full border border-custom-border text-[15px] focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-all placeholder:text-muted/60"
+                    required
+                  />
+                </div>
               </div>
               
-              <div className="relative">
-                <input 
-                  type={showPassword ? "text" : "password"}
-                  value={password} 
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="w-full p-4 pl-5 pr-12 rounded-full border border-custom-border text-[15px] focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-all placeholder:text-muted"
-                  required
-                />
-                <button 
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-navy transition-colors"
-                >
-                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-                </button>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-navy ml-2">Password</label>
+                <div className="relative">
+                  <input 
+                    type={showPassword ? "text" : "password"}
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    className="w-full p-4 pl-5 pr-12 rounded-full border border-custom-border text-[15px] focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-all placeholder:text-muted/60"
+                    required
+                  />
+                  <button 
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-navy transition-colors"
+                  >
+                    {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                  </button>
+                </div>
               </div>
 
-              <div className="flex items-center justify-between pl-2">
+              <div className="flex items-center justify-between pl-2 mt-1">
                 <label className="flex items-center gap-2 cursor-pointer group">
                   <input 
                     type="checkbox" 
@@ -121,7 +125,7 @@ export default function AdminLogin() {
               <button 
                 type="submit" 
                 disabled={loading} 
-                className="w-full p-4 mt-4 bg-navy text-white rounded-full text-[15px] font-bold hover:bg-navy/90 transition-colors disabled:opacity-70"
+                className="w-full p-4 mt-2 bg-navy text-white rounded-full text-[15px] font-bold hover:bg-navy/90 transition-colors disabled:opacity-70 shadow-md hover:shadow-lg"
               >
                 {loading ? 'Signing In...' : 'Sign In'}
               </button>
@@ -129,8 +133,8 @@ export default function AdminLogin() {
           </div>
 
           {/* Footer */}
-          <div className="flex justify-between items-center text-[12px] text-muted">
-            <p>© {new Date().getFullYear()} iGenius Kids World.</p>
+          <div className="mt-12 text-center text-[12px] text-muted">
+            <p>© {new Date().getFullYear()} iGenius Kids World. All rights reserved.</p>
           </div>
 
         </div>
