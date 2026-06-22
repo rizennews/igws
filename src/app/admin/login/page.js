@@ -40,7 +40,7 @@ export default function AdminLogin() {
         {/* Left Side - Graphic & Text */}
         <div className="hidden md:flex w-full md:w-[45%] relative bg-navy group overflow-hidden">
           <Image 
-            src="/thoughtful-child-with-backpack-wearing-blazer-2026-01-08-00-14-50-utc.jpg" 
+            src="/login-image.jpg" 
             alt="Student" 
             fill
             style={{ objectFit: 'cover' }}
