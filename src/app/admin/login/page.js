@@ -118,7 +118,7 @@ export default function AdminLogin() {
         </div>
 
         {/* Right Side - Graphic & Text (Now on the right) */}
-        <div className="hidden md:block w-full md:w-[45%] relative bg-navy rounded-[32px] overflow-hidden shrink-0">
+        <div className="hidden md:flex w-full md:w-[45%] min-h-[600px] h-full relative bg-navy rounded-[32px] overflow-hidden shrink-0">
           <Image 
             src="/child.jpg" 
             alt="Student" 
