@@ -38,12 +38,13 @@ export default function AdminLogin() {
       <div className="w-full max-w-[1200px] bg-white rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl h-[800px] max-h-[90vh]">
         
         {/* Left Side - Graphic & Text */}
-        <div className="hidden md:flex w-full md:w-[45%] relative bg-navy group overflow-hidden">
+        <div className="hidden md:block w-full md:w-[45%] shrink-0 relative bg-navy overflow-hidden">
           <Image 
             src="/login-image.jpg" 
             alt="Student" 
             fill
             style={{ objectFit: 'cover' }}
+            unoptimized={true}
             priority
           />
           
