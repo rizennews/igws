@@ -35,19 +35,19 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2b3a55] to-[#1e293b] p-4 sm:p-8 font-jost">
-      <div className="w-full max-w-[1100px] bg-white rounded-[40px] p-2 sm:p-3 flex flex-col md:flex-row shadow-2xl min-h-[700px]">
+      <div className="w-full max-w-[1100px] bg-white rounded-[40px] p-3 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] shadow-2xl min-h-[700px] gap-4">
         
-        {/* Left Side - Form (Now on the left) */}
-        <div className="w-full md:w-[55%] flex flex-col p-8 sm:p-12 lg:px-20 relative">
+        {/* Left Side - Form */}
+        <div className="flex flex-col p-4 sm:p-8 lg:px-12 relative h-full justify-center">
           
           {/* Header */}
-          <div className="flex items-center gap-3 mb-10">
-            <Image src="/igws.png" alt="iGenius Kids World" width={36} height={36} className="rounded-md" />
+          <div className="flex items-center gap-3 mb-8">
+            <img src="/igws.png" alt="iGenius Kids World" className="w-9 h-9 rounded-md" />
             <span className="font-bold text-navy text-xl">iGenius Kids World</span>
           </div>
 
           {/* Form Content */}
-          <div className="w-full flex-grow flex flex-col justify-center">
+          <div className="w-full max-w-[440px] mx-auto">
             <h2 className="text-[36px] font-medium text-navy mb-8 tracking-tight">Sign In</h2>
             
             <form onSubmit={handleLogin} className="flex flex-col gap-6">
@@ -111,14 +111,14 @@ export default function AdminLogin() {
           </div>
 
           {/* Footer */}
-          <div className="mt-12 text-center text-[12px] text-muted">
+          <div className="mt-8 text-center text-[12px] text-muted">
             <p>© {new Date().getFullYear()} iGenius Kids World. All rights reserved.</p>
           </div>
 
         </div>
 
-        {/* Right Side - Graphic & Text (Now on the right) */}
-        <div className="flex w-full md:w-[45%] min-h-[600px] relative rounded-[32px] overflow-hidden shrink-0 flex-col justify-end" style={{ backgroundColor: '#1A1F6B' }}>
+        {/* Right Side - Graphic & Text */}
+        <div className="w-full h-full min-h-[400px] lg:min-h-[600px] relative rounded-[32px] overflow-hidden flex flex-col justify-end">
           <img 
             src="/child.jpg" 
             alt="Student" 
