@@ -118,7 +118,7 @@ export default function AdminLogin() {
         </div>
 
         {/* Right Side - Graphic & Text (Now on the right) */}
-        <div className="hidden md:flex w-full md:w-[45%] min-h-[600px] relative bg-navy rounded-[32px] overflow-hidden shrink-0 flex-col justify-end">
+        <div className="flex w-full md:w-[45%] min-h-[600px] relative rounded-[32px] overflow-hidden shrink-0 flex-col justify-end" style={{ backgroundColor: '#1A1F6B' }}>
           <img 
             src="/child.jpg" 
             alt="Student" 
