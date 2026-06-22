@@ -118,18 +118,15 @@ export default function AdminLogin() {
         </div>
 
         {/* Right Side - Graphic & Text (Now on the right) */}
-        <div className="hidden md:flex w-full md:w-[45%] min-h-[600px] h-full relative bg-navy rounded-[32px] overflow-hidden shrink-0">
-          <Image 
+        <div className="hidden md:flex w-full md:w-[45%] min-h-[600px] relative bg-navy rounded-[32px] overflow-hidden shrink-0 flex-col justify-end">
+          <img 
             src="/child.jpg" 
             alt="Student" 
-            fill
-            style={{ objectFit: 'cover' }}
-            unoptimized={true}
-            priority
+            className="absolute inset-0 w-full h-full object-cover z-0"
           />
           
           {/* Glassmorphic Overlay at bottom */}
-          <div className="absolute bottom-0 left-0 w-full p-8 bg-black/40 backdrop-blur-md text-white transform transition-transform duration-500 ease-in-out">
+          <div className="relative z-10 w-full p-8 bg-black/40 backdrop-blur-md text-white border-t border-white/20">
             <h2 className="text-[26px] font-bold leading-tight mb-3 drop-shadow-md">
               Nurturing Character, <br /> Raising Change-Makers
             </h2>
