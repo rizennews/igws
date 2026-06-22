@@ -35,10 +35,10 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#E5E5E5] p-4 font-jost">
-      <div className="w-full max-w-[1200px] bg-navy rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl h-[800px] max-h-[90vh]">
+      <div className="w-full max-w-[1200px] bg-white rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl h-[800px] max-h-[90vh]">
         
         {/* Left Side - Graphic & Text */}
-        <div className="hidden md:flex w-[45%] relative bg-navy group overflow-hidden">
+        <div className="hidden md:flex w-full md:w-[45%] relative bg-navy group overflow-hidden">
           <Image 
             src="/thoughtful-child-with-backpack-wearing-blazer-2026-01-08-00-14-50-utc.jpg" 
             alt="Student" 
@@ -59,7 +59,7 @@ export default function AdminLogin() {
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full md:w-[55%] bg-white rounded-[32px] md:-ml-8 relative z-20 flex flex-col justify-between p-10 sm:p-16">
+        <div className="w-full md:w-[55%] bg-white relative z-20 flex flex-col justify-between p-10 sm:p-16">
           
           {/* Header */}
           <div className="flex items-center justify-between">
