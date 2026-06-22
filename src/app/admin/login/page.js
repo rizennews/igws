@@ -37,29 +37,7 @@ export default function AdminLogin() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2b3a55] to-[#1e293b] p-4 sm:p-8 font-jost">
       <div className="w-full max-w-[1100px] bg-white rounded-[40px] p-2 sm:p-3 flex flex-col md:flex-row shadow-2xl min-h-[700px]">
         
-        {/* Left Side - Graphic & Text */}
-        <div className="hidden md:block w-full md:w-[45%] relative bg-navy rounded-[32px] overflow-hidden shrink-0">
-          <Image 
-            src="/login-image.jpg" 
-            alt="Student" 
-            fill
-            style={{ objectFit: 'cover' }}
-            unoptimized={true}
-            priority
-          />
-          
-          {/* Glassmorphic Overlay at bottom */}
-          <div className="absolute bottom-0 left-0 w-full p-8 bg-black/40 backdrop-blur-md text-white transform transition-transform duration-500 ease-in-out">
-            <h2 className="text-[26px] font-bold leading-tight mb-3 drop-shadow-md">
-              Nurturing Character, <br /> Raising Change-Makers
-            </h2>
-            <p className="text-[14px] text-white/90 leading-relaxed font-medium drop-shadow-sm">
-              Streamlining the school's administrative workflow with intuitive digital tools.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Side - Form */}
+        {/* Left Side - Form (Now on the left) */}
         <div className="w-full md:w-[55%] flex flex-col p-8 sm:p-12 lg:px-20 relative">
           
           {/* Header */}
@@ -138,6 +116,29 @@ export default function AdminLogin() {
           </div>
 
         </div>
+
+        {/* Right Side - Graphic & Text (Now on the right) */}
+        <div className="hidden md:block w-full md:w-[45%] relative bg-navy rounded-[32px] overflow-hidden shrink-0">
+          <Image 
+            src="/child.jpg" 
+            alt="Student" 
+            fill
+            style={{ objectFit: 'cover' }}
+            unoptimized={true}
+            priority
+          />
+          
+          {/* Glassmorphic Overlay at bottom */}
+          <div className="absolute bottom-0 left-0 w-full p-8 bg-black/40 backdrop-blur-md text-white transform transition-transform duration-500 ease-in-out">
+            <h2 className="text-[26px] font-bold leading-tight mb-3 drop-shadow-md">
+              Nurturing Character, <br /> Raising Change-Makers
+            </h2>
+            <p className="text-[14px] text-white/90 leading-relaxed font-medium drop-shadow-sm">
+              Streamlining the school's administrative workflow with intuitive digital tools.
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   );
