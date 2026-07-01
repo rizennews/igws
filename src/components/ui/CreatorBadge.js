@@ -21,7 +21,7 @@ export default function CreatorBadge({ position = 'bottom-left' }) {
   const isLeft = position === 'bottom-left';
 
   return (
-    <div ref={wrapperRef} className={`relative z-50 ${isLeft ? 'fixed bottom-4 left-4 sm:bottom-6 sm:left-6' : 'inline-block'}`}>
+    <div ref={wrapperRef} className={`z-50 ${isLeft ? 'fixed bottom-4 left-4 sm:bottom-6 sm:left-6' : 'relative inline-block'}`}>
       
       {/* Popover Card */}
       <div 
