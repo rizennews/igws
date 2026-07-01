@@ -428,6 +428,13 @@ export default function FormViewer({ formId, schema }) {
         </button>
       </div>
 
+      <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-10">
+        <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="text-[10px] sm:text-[11px] font-medium text-navy/40 hover:text-navy transition-colors bg-white/50 px-3 py-1.5 rounded-full shadow-sm border border-navy/5 backdrop-blur-sm flex items-center gap-1.5">
+          <svg className="w-3 h-3 text-purple" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          Built by <span className="font-bold text-navy/70">Padmore Aning Dean</span>
+        </a>
+      </div>
+
       <AlertModal 
         isOpen={alertInfo.isOpen} 
         onClose={() => setAlertInfo({ ...alertInfo, isOpen: false })}

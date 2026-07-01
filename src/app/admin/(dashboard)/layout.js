@@ -63,6 +63,9 @@ export default async function AdminLayout({ children }) {
       <main className="flex-1 w-full flex flex-col">
         {children}
       </main>
+      <footer className="w-full text-center py-5 text-[11px] font-medium text-custom-text/40 border-t border-[#E4E8F6] bg-white">
+        Built by <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="text-purple hover:underline font-bold">Padmore Aning Dean</a>
+      </footer>
     </div>
   );
 }
