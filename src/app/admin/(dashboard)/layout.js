@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
 import { logoutAction } from '../login/actions';
+import CreatorBadge from '@/components/ui/CreatorBadge';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'super-secret-igenius-key-1234');
 
@@ -63,8 +64,8 @@ export default async function AdminLayout({ children }) {
       <main className="flex-1 w-full flex flex-col">
         {children}
       </main>
-      <footer className="w-full text-center py-5 text-[11px] font-medium text-custom-text/40 border-t border-[#E4E8F6] bg-white">
-        Built by <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="text-purple hover:underline font-bold">Padmore Aning Dean</a>
+      <footer className="w-full text-center py-5 border-t border-[#E4E8F6] bg-white flex justify-center">
+        <CreatorBadge position="center" />
       </footer>
     </div>
   );

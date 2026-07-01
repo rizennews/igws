@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { loginAction } from './actions';
 import { EyeOff, Eye } from 'lucide-react';
+import CreatorBadge from '@/components/ui/CreatorBadge';
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -118,8 +119,8 @@ export default function AdminLogin() {
 
           {/* Footer */}
           <div className="mt-8 text-center text-[12px] text-muted flex flex-col items-center">
-            <p>© {new Date().getFullYear()} FormFlow. All rights reserved.</p>
-            <p className="font-medium mt-1">Built by <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="text-purple hover:underline font-bold">Padmore Aning Dean</a></p>
+            <p className="mb-2">© {new Date().getFullYear()} FormFlow. All rights reserved.</p>
+            <CreatorBadge position="center" />
           </div>
 
         </div>
