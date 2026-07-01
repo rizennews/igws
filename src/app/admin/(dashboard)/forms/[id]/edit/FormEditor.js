@@ -213,7 +213,8 @@ export default function FormEditor({
       setToast('Changes saved successfully!');
       setTimeout(() => setToast(''), 3000);
     } catch (err) {
-      setError('Error saving form. Make sure your URL slug is unique.');
+      console.error('Error saving form:', err);
+      setError(`Error saving form: ${err.message || 'Unknown error. Check console.'}`);
     } finally {
       setLoading(false);
     }
@@ -987,9 +988,19 @@ export default function FormEditor({
                       setTimeout(() => setToast(''), 3000);
                     }}
                     appearance={{
-                      button: "px-4 py-3 bg-[#F4F5F7] hover:bg-[#EAECEF] text-navy rounded-xl text-[13px] font-bold transition-colors whitespace-nowrap h-auto focus-within:ring-0",
-                      container: "w-fit",
-                      allowedContent: "hidden"
+                      button: {
+                        background: '#F4F5F7',
+                        color: '#1a1a2e',
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        fontSize: '13px',
+                        fontWeight: 'bold',
+                        border: 'none',
+                        outline: 'none',
+                        height: 'auto'
+                      },
+                      container: { width: 'max-content', display: 'flex' },
+                      allowedContent: { display: 'none' }
                     }}
                     content={{
                       button({ ready }) {
