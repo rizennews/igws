@@ -977,7 +977,7 @@ export default function FormEditor({
                     endpoint="documentUploader"
                     onClientUploadComplete={(res) => {
                       if (res && res[0]) {
-                        setOgImage(res[0].url);
+                        setOgImage(res[0].ufsUrl || res[0].url);
                         setToast('Image uploaded!');
                         setTimeout(() => setToast(''), 3000);
                       }
