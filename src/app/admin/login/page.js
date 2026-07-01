@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { loginAction } from './actions';
 import { EyeOff, Eye } from 'lucide-react';
 
@@ -34,21 +33,28 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2b3a55] to-[#1e293b] p-4 sm:p-8 font-jost">
-      <div className="w-full max-w-[1100px] bg-white rounded-[40px] p-3 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] shadow-2xl min-h-[700px] gap-4">
+    <div className="min-h-screen flex items-center justify-center bg-off-white p-4 sm:p-8 font-sans">
+      <div className="login-card-container w-full bg-white border border-[#E4E8F6] rounded-[32px] p-3 shadow-2xl gap-4">
         
         {/* Left Side - Form */}
-        <div className="flex flex-col p-4 sm:p-8 lg:px-12 relative h-full justify-center">
+        <div className="flex flex-col p-4 sm:p-8 lg:px-12 relative h-full justify-center bg-white rounded-[28px]">
           
           {/* Header */}
           <div className="flex items-center gap-3 mb-8">
-            <img src="/igws.png" alt="iGenius Kids World" className="w-9 h-9 rounded-md" />
-            <span className="font-bold text-navy text-xl">iGenius Kids World</span>
+            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-navy/10 text-navy shadow-inner shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+            </div>
+            <span className="font-bold text-navy text-xl tracking-tight">FormFlow</span>
           </div>
 
           {/* Form Content */}
           <div className="w-full max-w-[440px] mx-auto">
-            <h2 className="text-[36px] font-medium text-navy mb-8 tracking-tight">Sign In</h2>
+            <h2 className="text-[36px] font-bold text-navy mb-8 tracking-tight font-serif" style={{ fontFamily: 'var(--font-playfair-display), serif', letterSpacing: '-0.02em' }}>Sign In</h2>
             
             <form onSubmit={handleLogin} className="flex flex-col gap-6">
               <div className="flex flex-col gap-1.5">
@@ -59,7 +65,7 @@ export default function AdminLogin() {
                     value={username} 
                     onChange={e => setUsername(e.target.value)}
                     placeholder="Enter your username"
-                    className="w-full p-4 pl-5 rounded-full border border-custom-border text-[15px] focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-all placeholder:text-muted/60"
+                    className="w-full p-4 pl-5 rounded-full border border-custom-border bg-white text-custom-text text-[15px] focus:border-purple focus:ring-1 focus:ring-purple outline-none transition-all placeholder:text-muted/50"
                     required
                   />
                 </div>
@@ -73,7 +79,7 @@ export default function AdminLogin() {
                     value={password} 
                     onChange={e => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full p-4 pl-5 pr-12 rounded-full border border-custom-border text-[15px] focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-all placeholder:text-muted/60"
+                    className="w-full p-4 pl-5 pr-12 rounded-full border border-custom-border bg-white text-custom-text text-[15px] focus:border-purple focus:ring-1 focus:ring-purple outline-none transition-all placeholder:text-muted/50"
                     required
                   />
                   <button 
@@ -92,18 +98,18 @@ export default function AdminLogin() {
                     type="checkbox" 
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded border-custom-border text-navy focus:ring-navy transition-colors cursor-pointer"
+                    className="w-4 h-4 rounded border-custom-border text-navy focus:ring-navy transition-colors cursor-pointer accent-navy"
                   />
-                  <span className="text-[13px] font-medium text-muted group-hover:text-navy transition-colors">Remember me</span>
+                  <span className="text-[13px] font-semibold text-muted group-hover:text-navy transition-colors">Remember me</span>
                 </label>
               </div>
               
-              {error && <p className="text-[13px] text-error px-2">{error}</p>}
+              {error && <p className="text-[13px] text-red-500 px-2 font-semibold">{error}</p>}
               
               <button 
                 type="submit" 
                 disabled={loading} 
-                className="w-full p-4 mt-2 bg-navy text-white rounded-full text-[15px] font-bold hover:bg-navy/90 transition-colors disabled:opacity-70 shadow-md hover:shadow-lg"
+                className="w-full p-4 mt-2 bg-navy text-white rounded-full text-[15px] font-bold hover:bg-purple transition-all duration-350 disabled:opacity-70 shadow-md hover:shadow-lg"
               >
                 {loading ? 'Signing In...' : 'Sign In'}
               </button>
@@ -112,26 +118,30 @@ export default function AdminLogin() {
 
           {/* Footer */}
           <div className="mt-8 text-center text-[12px] text-muted">
-            <p>© {new Date().getFullYear()} iGenius Kids World. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} FormFlow. All rights reserved.</p>
           </div>
 
         </div>
 
-        {/* Right Side - Graphic & Text */}
-        <div className="w-full h-full min-h-[400px] lg:min-h-[600px] relative rounded-[32px] overflow-hidden flex flex-col justify-end">
+        {/* Right Side - Graphic & Text (Hidden on mobile) */}
+        <div className="login-graphic-panel w-full h-full min-h-[400px] lg:min-h-[600px] relative rounded-[28px] overflow-hidden flex-col justify-end bg-gradient-to-br from-[#1A1F6B] via-[#6B2FA0] to-[#7C3DB5]">
           <img 
             src="/child.jpg" 
             alt="Student" 
-            className="absolute inset-0 w-full h-full object-cover z-0"
+            fetchPriority="high"
+            loading="eager"
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-85 transition-all duration-500 hover:scale-[1.02]"
           />
+          {/* Subtle gradient overlay to blend image into the bottom text area */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1f6b]/95 via-[#1a1f6b]/40 to-transparent z-10" />
           
           {/* Glassmorphic Overlay at bottom */}
-          <div className="relative z-10 w-full p-8 bg-black/40 backdrop-blur-md text-white border-t border-white/20">
-            <h2 className="text-[26px] font-bold leading-tight mb-3 drop-shadow-md">
-              Nurturing Character, <br /> Raising Change-Makers
+          <div className="relative z-20 w-full p-8 bg-black/30 backdrop-blur-md text-white border-t border-white/10">
+            <h2 className="text-[26px] font-bold leading-tight mb-3 drop-shadow-md font-serif text-white" style={{ fontFamily: 'var(--font-playfair-display), serif', letterSpacing: '-0.01em' }}>
+              Build Beautiful Forms, <br /> Capture Seamless Data.
             </h2>
             <p className="text-[14px] text-white/90 leading-relaxed font-medium drop-shadow-sm">
-              Streamlining the school's administrative workflow with intuitive digital tools.
+              Dynamic, multi-step forms built for modern workflows.
             </p>
           </div>
         </div>
