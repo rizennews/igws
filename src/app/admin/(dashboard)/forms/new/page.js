@@ -374,7 +374,32 @@ export default function FormBuilder() {
           </div>
 
           {/* COLUMN 2: Canvas Center Preview Panel */}
-          <div className="flex-1 bg-[#F4F5F7] p-4 sm:p-8 flex flex-col justify-between overflow-y-auto h-full select-text min-w-0">
+          <div className="flex-1 bg-[#F4F5F7] p-4 sm:p-8 flex flex-col justify-between overflow-y-auto h-full select-text min-w-0 relative">
+            
+            {/* LARGE FORM TITLE INPUT */}
+            <div className="max-w-3xl mx-auto w-full mb-4 sm:mb-6 shrink-0 sticky top-0 z-10 bg-[#F4F5F7] pt-4 pb-2 shadow-[0_10px_10px_-10px_#F4F5F7]">
+              <textarea 
+                value={title} 
+                onChange={e => handleTitleChange(e.target.value)} 
+                className="text-[20px] sm:text-[24px] font-bold text-navy bg-transparent border-0 border-b-2 border-transparent hover:border-[#E4E8F6] focus:border-purple focus:ring-0 focus:outline-none p-2 w-full text-center transition-all placeholder-navy/30 resize-none overflow-hidden" 
+                placeholder="Enter Form Title..."
+                rows={1}
+              />
+              <div className="flex items-center justify-center gap-0.5 mt-1 opacity-50 hover:opacity-100 transition-opacity focus-within:opacity-100">
+                <span className="text-[12px] font-bold text-navy">/f/</span>
+                <input 
+                  value={slug}
+                  onChange={e => {
+                    setIsSlugManuallyEdited(true);
+                    setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'));
+                  }}
+                  className="bg-transparent border-0 border-b border-transparent hover:border-purple/30 focus:border-purple focus:ring-0 focus:outline-none p-0 text-[12px] font-bold text-navy transition-colors text-center"
+                  placeholder="custom-link-name"
+                  style={{ width: `${Math.max(slug.length, 14)}ch` }}
+                />
+              </div>
+            </div>
+
             {activeStepIndex === -1 ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-4 max-w-md mx-auto">
                 <div className="w-14 h-14 rounded-full bg-purple/5 flex items-center justify-center text-[#A0A4CD]">
@@ -382,7 +407,7 @@ export default function FormBuilder() {
                 </div>
                 <div>
                   <h4 className="text-[15px] font-bold text-navy mb-1 font-serif">Workspace is Empty</h4>
-                  <p className="text-[12px] text-muted leading-relaxed">Add a step on the left steps list or type in the AI generate bar below to construct the entire form automatically.</p>
+                  <p className="text-[12px] text-muted leading-relaxed">Click 'Add First Question' or use the AI bar above to get started.</p>
                 </div>
                 <button 
                   onClick={() => addField('text')}

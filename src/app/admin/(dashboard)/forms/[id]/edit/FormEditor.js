@@ -8,7 +8,9 @@ import {
   GitBranch, Link2, Share2, BarChart3, Brain, Database, FileSpreadsheet, MessageSquare, Zap, Globe, Sparkle
 } from 'lucide-react';
 import { updateForm } from './actions';
+import AlertModal from '@/components/ui/AlertModal';
 import ConfirmModal from '@/components/ui/ConfirmModal';
+import { UploadButton } from '@/lib/uploadthing-components';
 
 const FIELD_TYPES = [
   { type: 'text', label: 'Short Text', icon: Type },
@@ -421,8 +423,18 @@ export default function FormEditor({
                 onChange={e => setTitle(e.target.value)} 
                 className="text-[20px] sm:text-[24px] font-bold text-navy bg-transparent border-0 border-b-2 border-transparent hover:border-[#E4E8F6] focus:border-purple focus:ring-0 focus:outline-none p-2 w-full text-center transition-all placeholder-navy/30 resize-none overflow-hidden" 
                 placeholder="Enter Form Title..."
-                rows={2}
+                rows={1}
               />
+              <div className="flex items-center justify-center gap-0.5 mt-1 opacity-50 hover:opacity-100 transition-opacity focus-within:opacity-100">
+                <span className="text-[12px] font-bold text-navy">/f/</span>
+                <input 
+                  value={slug}
+                  onChange={e => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))}
+                  className="bg-transparent border-0 border-b border-transparent hover:border-purple/30 focus:border-purple focus:ring-0 focus:outline-none p-0 text-[12px] font-bold text-navy transition-colors text-center"
+                  placeholder="custom-link-name"
+                  style={{ width: `${Math.max(slug.length, 14)}ch` }}
+                />
+              </div>
             </div>
 
             {activeStepIndex === -1 ? (
@@ -432,7 +444,7 @@ export default function FormEditor({
                 </div>
                 <div>
                   <h4 className="text-[15px] font-bold text-navy mb-1 font-serif">Workspace is Empty</h4>
-                  <p className="text-[12px] text-muted leading-relaxed">Add a step on the left steps list or type in the AI generate bar below to construct the entire form automatically.</p>
+                  <p className="text-[12px] text-muted leading-relaxed">Click 'Add First Question' below to construct the form.</p>
                 </div>
                 <button 
                   onClick={() => addField('text')}
@@ -960,37 +972,33 @@ export default function FormEditor({
                   className="flex-1 p-3 rounded-xl border border-custom-border text-[13px] focus:border-purple focus:ring-0 text-navy bg-[#FBFBFC]"
                 />
                 <span className="text-muted text-[12px] font-semibold">OR</span>
-                <label className="cursor-pointer px-4 py-3 bg-[#F4F5F7] hover:bg-[#EAECEF] text-navy rounded-xl text-[13px] font-bold transition-colors whitespace-nowrap">
-                  Upload File
-                  <input 
-                    type="file" 
-                    className="hidden" 
-                    accept="image/*"
-                    onChange={async (e) => {
-                      const file = e.target.files[0];
-                      if (!file) return;
-                      setToast('Uploading image...');
-                      const formData = new FormData();
-                      formData.append('file', file);
-                      try {
-                        const res = await fetch('/api/upload', {
-                          method: 'POST',
-                          body: formData
-                        });
-                        const data = await res.json();
-                        if (data.url) {
-                          setOgImage(data.url);
-                          setToast('Image uploaded!');
-                        } else {
-                          setToast('Upload failed');
-                        }
-                      } catch (err) {
-                        setToast('Upload failed');
+                <div className="flex-shrink-0">
+                  <UploadButton 
+                    endpoint="documentUploader"
+                    onClientUploadComplete={(res) => {
+                      if (res && res[0]) {
+                        setOgImage(res[0].url);
+                        setToast('Image uploaded!');
+                        setTimeout(() => setToast(''), 3000);
                       }
+                    }}
+                    onUploadError={(error) => {
+                      setToast(`ERROR! ${error.message}`);
                       setTimeout(() => setToast(''), 3000);
                     }}
+                    appearance={{
+                      button: "px-4 py-3 bg-[#F4F5F7] hover:bg-[#EAECEF] text-navy rounded-xl text-[13px] font-bold transition-colors whitespace-nowrap h-auto focus-within:ring-0",
+                      container: "w-fit",
+                      allowedContent: "hidden"
+                    }}
+                    content={{
+                      button({ ready }) {
+                        if (ready) return "Upload File";
+                        return "Loading...";
+                      }
+                    }}
                   />
-                </label>
+                </div>
               </div>
               
               {ogImage && (
