@@ -117,8 +117,9 @@ export default function AdminLogin() {
           </div>
 
           {/* Footer */}
-          <div className="mt-8 text-center text-[12px] text-muted">
+          <div className="mt-8 text-center text-[12px] text-muted flex flex-col items-center">
             <p>© {new Date().getFullYear()} FormFlow. All rights reserved.</p>
+            <p className="font-medium mt-1">Built by <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="text-purple hover:underline font-bold">Padmore Aning Dean</a></p>
           </div>
 
         </div>
