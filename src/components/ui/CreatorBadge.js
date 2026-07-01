@@ -33,24 +33,21 @@ export default function CreatorBadge({ position = 'bottom-left' }) {
         </button>
         
         <div>
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-purple tracking-widest uppercase mb-1">
-            <Sparkles size={10} className="text-gold" /> Available for hire
-          </div>
           <h4 className="text-[16px] font-bold text-navy leading-tight">Padmore Aning Dean</h4>
-          <p className="text-[12px] font-semibold text-muted">Full Stack Developer & Product Designer</p>
+          <p className="text-[12px] font-semibold text-muted mt-0.5">Full Stack Developer & Product Designer</p>
         </div>
         
         <p className="text-[12.5px] text-custom-text leading-relaxed mt-1">
           Need a custom web application, beautiful SaaS platform, or high-performance website? Let's build something amazing together.
         </p>
         
-        <div className="flex flex-col gap-2 mt-2 pt-3 border-t border-[#F1F2F6]">
-          <a href="mailto:hello@padmoreaning.com" className="flex items-center gap-2 text-[12px] font-semibold text-navy hover:text-purple transition-colors bg-[#F4F5F7] hover:bg-purple/10 px-3 py-2 rounded-lg">
-            <Mail size={14} className="text-purple shrink-0" />
+        <div className="flex flex-col mt-2 pt-3 border-t border-[#F1F2F6]">
+          <a href="mailto:hello@padmoreaning.com" className="flex items-center gap-2.5 text-[13px] font-semibold text-navy hover:text-purple transition-colors bg-transparent hover:bg-purple/5 px-2 py-2 rounded-lg -mx-2">
+            <Mail size={15} className="text-purple shrink-0" />
             <span className="truncate">hello@padmoreaning.com</span>
           </a>
-          <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[12px] font-semibold text-navy hover:text-purple transition-colors bg-[#F4F5F7] hover:bg-purple/10 px-3 py-2 rounded-lg">
-            <Globe size={14} className="text-purple shrink-0" />
+          <a href="https://padmoreaning.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-[13px] font-semibold text-navy hover:text-purple transition-colors bg-transparent hover:bg-purple/5 px-2 py-2 rounded-lg -mx-2">
+            <Globe size={15} className="text-purple shrink-0" />
             <span className="truncate">padmoreaning.com</span>
           </a>
         </div>
@@ -60,9 +57,9 @@ export default function CreatorBadge({ position = 'bottom-left' }) {
       <button 
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`text-[10px] sm:text-[11px] font-medium transition-all flex items-center gap-1.5 shadow-sm border backdrop-blur-sm
+        className={`text-[11px] font-medium transition-all flex items-center justify-center gap-1.5 shadow-sm border
           ${isLeft 
-            ? 'bg-white/70 hover:bg-white text-navy/60 hover:text-navy px-3 py-1.5 rounded-full border-navy/10' 
+            ? 'bg-white hover:bg-off-white text-navy/80 hover:text-navy px-3.5 py-2 rounded-full border-[#E4E8F6]' 
             : 'bg-[#F4F5F7] hover:bg-[#EAECEF] text-navy/70 hover:text-navy px-4 py-2 rounded-xl border-transparent'
           }`}
       >

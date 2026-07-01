@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import CreatorBadge from '@/components/ui/CreatorBadge';
 import { submitForm, trackView, trackDropoff } from './actions';
 import { UploadDropzone } from '@/lib/uploadthing-components';
 import AlertModal from '@/components/ui/AlertModal';
@@ -428,8 +427,6 @@ export default function FormViewer({ formId, schema }) {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
       </div>
-
-      <CreatorBadge position="bottom-left" />
 
       <AlertModal 
         isOpen={alertInfo.isOpen} 

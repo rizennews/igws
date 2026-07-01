@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import FormViewer from './FormViewer';
+import CreatorBadge from '@/components/ui/CreatorBadge';
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -100,6 +101,7 @@ export default async function PublicFormPage({ params }) {
   return (
     <>
       <link rel="stylesheet" href="/form.css" />
+      <CreatorBadge position="bottom-left" />
       
       {/* Global CSS from user's original HTML is loaded via /form.css */}
       <div className="view active font-ibm-plex-sans" style={{ display: 'block' }}>
