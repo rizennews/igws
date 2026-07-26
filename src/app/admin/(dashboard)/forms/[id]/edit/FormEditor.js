@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { PlusCircle, GripVertical, Trash2, Save, Copy, Type, AlignLeft, Mail, Phone, Calendar, Hash, ChevronDown, CheckCircle2, CheckSquare, Upload } from 'lucide-react';
 import { updateForm } from './actions';
+import './form-editor.css';
 
 const FIELD_TYPES = [
   { type: 'text', label: 'Short Text', icon: Type },
@@ -35,13 +36,17 @@ export default function FormEditor({ formId, initialTitle, initialDescription, i
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   const handleDragStart = (e, index) => {
     dragItem.current = index;
     dragType.current = null;
     e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', index.toString());
+    setDraggedIndex(index);
     setTimeout(() => {
-      if (e.target) e.target.style.opacity = '0.5';
+      if (e.target) e.target.style.opacity = '0.4';
     }, 0);
   };
 
@@ -50,12 +55,22 @@ export default function FormEditor({ formId, initialTitle, initialDescription, i
     dragItem.current = null;
     e.dataTransfer.effectAllowed = 'copy';
     setTimeout(() => {
-      if (e.target) e.target.style.opacity = '0.5';
+      if (e.target) e.target.style.opacity = '0.4';
     }, 0);
   };
 
   const handleDragEnter = (e, index) => {
+    e.preventDefault();
     dragOverItem.current = index;
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = (e, index) => {
+    if (e.currentTarget.contains(e.relatedTarget)) {
+      return;
+    }
+    dragOverItem.current = null;
+    setDragOverIndex(null);
   };
 
   const handleDragEnd = (e) => {
@@ -78,9 +93,20 @@ export default function FormEditor({ formId, initialTitle, initialDescription, i
       });
       setFields(newFields);
     }
+    
     dragItem.current = null;
     dragOverItem.current = null;
     dragType.current = null;
+    setDragOverIndex(null);
+    setDraggedIndex(null);
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    if (dragOverItem.current !== index) {
+      dragOverItem.current = index;
+      setDragOverIndex(index);
+    }
   };
 
   const addField = (type) => {
@@ -231,19 +257,24 @@ export default function FormEditor({ formId, initialTitle, initialDescription, i
 
         <div className="flex flex-col gap-3 min-h-[200px]">
           {fields.map((field, index) => (
-            <div
+              <div
               key={field.id}
               draggable
               onDragStart={(e) => handleDragStart(e, index)}
               onDragEnter={(e) => handleDragEnter(e, index)}
+              onDragLeave={(e) => handleDragLeave(e, index)}
               onDragEnd={handleDragEnd}
-              onDragOver={(e) => e.preventDefault()}
-              className="group flex gap-3 p-4 bg-white border-2 border-transparent hover:border-purple/30 rounded-xl transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+              onDragOver={(e) => handleDragOver(e, index)}
+              className={`group flex gap-3 p-4 bg-white border-2 rounded-xl transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] ${
+                dragOverIndex === index && draggedIndex !== index
+                  ? 'border-purple bg-purple/5 scale-[1.01]'
+                  : 'border-transparent hover:border-purple/30'
+              } ${draggedIndex === index ? 'opacity-40 scale-[0.98]' : ''}`}
               style={{ cursor: 'grab' }}
             >
-              <div className="pt-2 cursor-grab text-muted/50 group-hover:text-muted">
-                <GripVertical size={20} />
-              </div>
+               <div className="pt-2 cursor-grab text-muted/50 group-hover:text-purple transition-colors flex-shrink-0">
+                 <GripVertical size={20} />
+               </div>
               
               <div className="flex-1 grid grid-cols-12 gap-4">
                 <div className="col-span-12 sm:col-span-5">

@@ -1,0 +1,114 @@
+/* Form Editor Drag and Drop Styles */
+
+.field-dragging {
+  opacity: 0.5;
+  transform: scale(0.98);
+}
+
+.field-drag-over {
+  border-color: #6B2FA0 !important;
+  background-color: rgba(107, 47, 160, 0.05) !important;
+  transform: translateY(2px);
+  box-shadow: 0 4px 12px rgba(107, 47, 160, 0.15);
+}
+
+/* Smooth transitions for field reordering */
+.field-wrapper {
+  transition: all 0.2s ease-in-out;
+}
+
+.field-wrapper.dragging {
+  opacity: 0.4;
+  transform: scale(0.97);
+}
+
+/* Visual indicator for drop zone */
+.drop-indicator {
+  position: relative;
+}
+
+.drop-indicator::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #6B2FA0;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.drop-indicator.active::before {
+  opacity: 1;
+}
+
+/* Grip handle cursor feedback */
+.grip-handle {
+  cursor: grab;
+  transition: color 0.2s ease;
+}
+
+.grip-handle:active {
+  cursor: grabbing;
+}
+
+/* Field card hover enhancement */
+.field-card {
+  transition: all 0.2s ease;
+}
+
+.field-card:hover {
+  border-color: rgba(107, 47, 160, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar drag items */
+.sidebar-item {
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.sidebar-item:active {
+  cursor: grabbing;
+}
+
+.sidebar-item.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+/* Animation for reordering */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.field-animate {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Disable text selection while dragging */
+.dragging-active {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Visual feedback for valid drop target */
+.valid-drop-target {
+  border-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.05) !important;
+}
+
+/* Visual feedback for invalid drop target */
+.invalid-drop-target {
+  border-color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.05) !important;
+}
