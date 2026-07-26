@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { 
   Plus, Trash2, Save, Type, AlignLeft, Mail, Phone, Calendar, 
   Hash, ChevronDown, ChevronUp, CheckCircle2, CheckSquare, Upload, Copy, Settings, ArrowLeft,
-  GitBranch, Link2, Share2, BarChart3, Brain, Database, FileSpreadsheet, MessageSquare, Zap, Globe, Sparkle
+  GitBranch, Link2, Share2, BarChart3, Brain, Database, FileSpreadsheet, MessageSquare, Zap, Globe, Sparkle, GripVertical
 } from 'lucide-react';
 import { updateForm } from './actions';
 import './form-editor.css';
