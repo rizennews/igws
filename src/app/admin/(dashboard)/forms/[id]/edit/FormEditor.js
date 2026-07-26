@@ -215,7 +215,7 @@ export default function FormEditor({
   };
 
   const confirmRemoveField = () => {
-    if (fieldToDelete !== null) {
+    if (fieldToDelete !== null && fieldToDelete !== undefined) {
       const updated = fields.filter((_, i) => i !== fieldToDelete);
       setFields(updated);
       if (updated.length === 0) {
@@ -497,7 +497,7 @@ export default function FormEditor({
                           </button>
                           <button 
                             type="button" 
-                            onClick={(e) => { e.stopPropagation(); setFieldToDelete(idx); }}
+                            onClick={(e) => { e.stopPropagation(); removeField(idx); }}
                             className="p-2 bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-sm"
                             title="Delete Field"
                           >
@@ -571,7 +571,7 @@ export default function FormEditor({
                 {activeStepIndex !== 'ending' && (
                   <button 
                     type="button" 
-                    onClick={() => setFieldToDelete(activeStepIndex)}
+                    onClick={() => removeField(activeStepIndex)}
                     className="p-2 rounded-full bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-sm" 
                     title="Delete Field"
                   >
