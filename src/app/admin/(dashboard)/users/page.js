@@ -39,7 +39,7 @@ export default async function ManageUsersPage() {
   }
 
   return (
-    <div>
+    <div className="max-w-[1100px] w-full mx-auto p-7">
       <div className="mb-6">
         <h2 className="text-[20px] font-extrabold text-navy">Team Management</h2>
         <p className="text-[13px] text-muted mt-0.5">Manage administrators and their roles.</p>

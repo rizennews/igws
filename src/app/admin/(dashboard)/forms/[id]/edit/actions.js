@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { utapi } from '@/lib/uploadthing';
 
 export async function updateForm(id, data) {
-  const { title, description, slug, schema, isActive = true, endDate } = data;
+  const { title, description, slug, schema, isActive = true, endDate, ogImage, closedMessage } = data;
 
   await prisma.form.update({
     where: { id },
@@ -17,6 +17,8 @@ export async function updateForm(id, data) {
       schema,
       isActive,
       endDate: endDate ? new Date(endDate) : null,
+      ogImage,
+      closedMessage,
     }
   });
 

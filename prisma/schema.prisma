@@ -23,6 +23,8 @@ model Form {
   schema       String   // JSON stringified array of field definitions
   isActive     Boolean  @default(true)
   endDate      DateTime? // Optional auto-expiration date
+  ogImage      String?   // Optional OpenGraph image URL for social sharing
+  closedMessage String?  // Optional custom message shown when form is closed/expired
   views        Int      @default(0)
   dropoffStats String?  // JSON stringified key-value pairs representing drop-offs at specific steps
   createdAt    DateTime @default(now())

@@ -7,7 +7,11 @@ export default function ExportCSVButton({ submissions, columns, title }) {
     // Escape string for CSV
     const escapeCSV = (str) => {
       if (str === null || str === undefined) return '""';
-      const s = String(str);
+      let s = String(str);
+      // Prevent CSV injection (Formula injection)
+      if (s.startsWith('=') || s.startsWith('+') || s.startsWith('-') || s.startsWith('@')) {
+        s = `'${s}`;
+      }
       if (s.includes('"') || s.includes(',') || s.includes('\n') || s.includes('\r')) {
         return `"${s.replace(/"/g, '""')}"`;
       }

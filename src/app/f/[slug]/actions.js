@@ -4,6 +4,16 @@ import { prisma } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 
 export async function submitForm(formId, dataString, fileKeys = "[]") {
+  const form = await prisma.form.findUnique({ where: { id: formId } });
+  if (!form || !form.isActive) {
+    throw new Error('This form is closed or does not exist.');
+  }
+
+  const isExpired = form.endDate && new Date() > new Date(form.endDate);
+  if (isExpired) {
+    throw new Error('This form has expired.');
+  }
+
   const submission = await prisma.submission.create({
     data: {
       formId,

@@ -12,7 +12,8 @@
   --color-muted: #6B6E8A;
   --color-success: #28A745;
   --color-error: #DC3545;
-  --font-ibm-plex-sans: var(--font-ibm-plex-sans), sans-serif;
+  --font-sans: var(--font-geom), var(--font-outfit), sans-serif;
+  --font-serif: var(--font-bricolage), sans-serif;
 }
 
 @layer utilities {
@@ -24,5 +25,78 @@
 body {
   background-color: var(--color-off-white);
   color: var(--color-custom-text);
-  font-family: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Custom Login Page Responsive Overrides */
+.login-card-container {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  width: 100% !important;
+  max-width: 500px !important;
+  min-height: fit-content !important;
+}
+
+.login-graphic-panel {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .login-card-container {
+    grid-template-columns: 1.1fr 1fr !important;
+    max-width: 1100px !important;
+    min-height: 700px !important;
+  }
+  .login-graphic-panel {
+    display: flex !important;
+  }
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.wizard-anim {
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-fade-in-up {
+  animation: slideUpFade 0.4s ease-out forwards;
+}
+
+/* Hard override for Typeform input styles to defeat any browser/plugin defaults */
+.typeform-wrapper input:not([type="radio"]):not([type="checkbox"]),
+.typeform-wrapper textarea {
+  background-color: transparent !important;
+  resize: none !important;
+  box-shadow: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 2px solid rgba(107, 47, 160, 0.3) !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  padding: 0 0 4px 0 !important;
+  line-height: 1.2 !important;
+  display: block !important;
+}
+
+/* Remove number input spinners */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.typeform-wrapper input:not([type="radio"]):not([type="checkbox"]):focus,
+.typeform-wrapper textarea:focus {
+  border-bottom: 2px solid rgba(107, 47, 160, 1) !important;
+  outline: none !important;
 }
