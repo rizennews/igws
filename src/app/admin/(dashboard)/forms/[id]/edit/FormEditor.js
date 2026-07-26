@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { 
   Plus, Trash2, Save, Type, AlignLeft, Mail, Phone, Calendar, 
   Hash, ChevronDown, ChevronUp, CheckCircle2, CheckSquare, Upload, Copy, Settings, ArrowLeft,
-  GitBranch, Link2, Share2, BarChart3, Brain, Database, FileSpreadsheet, MessageSquare, Zap, Globe, Sparkle, GripVertical
+  GitBranch, Link2, Share2, BarChart3, Brain, Database, FileSpreadsheet, MessageSquare, Zap, Globe, Sparkle
 } from 'lucide-react';
+import { GripVertical } from 'lucide-react';
 import { updateForm } from './actions';
 import './form-editor.css';
 
@@ -63,6 +64,7 @@ export default function FormEditor({
   const [toast, setToast] = useState('');
   const [activeTab, setActiveTab] = useState('Content');
   const [fieldToDelete, setFieldToDelete] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Stats and Submissions States
   const [views, setViews] = useState(initialViews);
@@ -208,12 +210,21 @@ export default function FormEditor({
   };
 
   const removeField = (index) => {
-    const updated = fields.filter((_, i) => i !== index);
-    setFields(updated);
-    if (updated.length === 0) {
-      setActiveStepIndex(-1);
-    } else {
-      setActiveStepIndex(Math.max(0, index - 1));
+    setFieldToDelete(index);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmRemoveField = () => {
+    if (fieldToDelete !== null) {
+      const updated = fields.filter((_, i) => i !== fieldToDelete);
+      setFields(updated);
+      if (updated.length === 0) {
+        setActiveStepIndex(-1);
+      } else {
+        setActiveStepIndex(Math.max(0, fieldToDelete - 1));
+      }
+      setFieldToDelete(null);
+      setShowDeleteConfirm(false);
     }
   };
 
@@ -1390,21 +1401,36 @@ export default function FormEditor({
         </div>
       )}
 
-      <ConfirmModal
-        isOpen={fieldToDelete !== null}
-        onClose={() => setFieldToDelete(null)}
-        onConfirm={() => {
-          if (fieldToDelete !== null) {
-            removeField(fieldToDelete);
-            setFieldToDelete(null);
-          }
-        }}
-        title="Delete Field"
-        message="Are you sure you want to delete this field? Any logic or data tied to this field might be affected."
-        confirmText="Delete"
-        cancelText="Cancel"
-        isDestructive={true}
-      />
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black/20 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl px-10 py-8 w-full max-w-[400px] shadow-[0_20px_60px_rgba(0,0,0,0.08)] animate-fade-in relative text-center">
+            <button 
+              onClick={() => setShowDeleteConfirm(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[#f4f4f5] text-[#a1a1aa] hover:bg-[#e4e4e7] transition-colors"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <h3 className="text-2xl font-extrabold text-navy mb-2 mt-2">Are you sure?</h3>
+            <p className="text-[14px] text-[#52525b] mb-8 leading-snug px-2">
+              Are you sure you want to delete this item? This action cannot be undone.
+            </p>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => setShowDeleteConfirm(false)} 
+                className="flex-1 py-2.5 bg-transparent border-2 border-navy text-navy rounded-lg text-[14px] font-bold hover:bg-light-gray transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmRemoveField} 
+                className="flex-1 py-2.5 bg-[#f43f5e] text-white rounded-lg text-[14px] font-bold hover:opacity-90 transition-opacity"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
