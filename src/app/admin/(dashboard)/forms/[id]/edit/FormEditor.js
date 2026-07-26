@@ -322,8 +322,20 @@ export default function FormEditor({
         throw new Error(data.error || 'Failed to generate form.');
       }
       if (data.fields && data.fields.length > 0) {
-        setFields(data.fields);
-        setActiveStepIndex(0);
+        // Parse position from prompt: "add a field for name at number 2" or "insert at position 2"
+        const positionMatch = aiPrompt.match(/(?:at\s+(?:number\s+)?|position\s+)(\d+)/i);
+        if (positionMatch) {
+          const position = Math.max(0, Math.min(parseInt(positionMatch[1]) - 1, fields.length));
+          const newFields = [...fields];
+          newFields.splice(position, 0, ...data.fields);
+          setFields(newFields);
+          setActiveStepIndex(position);
+        } else {
+          // Append to end if no position specified
+          const newFields = [...fields, ...data.fields];
+          setFields(newFields);
+          setActiveStepIndex(fields.length);
+        }
         setAiPrompt('');
       } else {
         setAiError('No fields returned. Try again with a different request.');
