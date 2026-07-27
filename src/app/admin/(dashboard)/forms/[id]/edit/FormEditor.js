@@ -86,6 +86,11 @@ export default function FormEditor({
   const [dragOverIndex, setDragOverIndex] = useState(null);
   const [draggedIndex, setDraggedIndex] = useState(null);
 
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartY, setDragStartY] = useState(null);
+  const [dragCurrentIndex, setDragCurrentIndex] = useState(null);
+  const listRef = useRef(null);
+
   // Typing suggestions placeholder animation
   const [suggestionIdx, setSuggestionIdx] = useState(0);
   const [subCharIdx, setSubCharIdx] = useState(0);
@@ -122,74 +127,59 @@ export default function FormEditor({
     return () => clearTimeout(timer);
   }, [subCharIdx, isDeleting, suggestionIdx]);
 
-  const handleDragStart = (e, index) => {
+  const handlePointerDown = (e, index) => {
+    if (e.button !== 0) return;
+    setIsDragging(false);
+    setDragStartY(e.clientY);
+    setDragCurrentIndex(index);
     dragItem.current = index;
-    dragType.current = null;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', index.toString());
-    setDraggedIndex(index);
-    setTimeout(() => {
-      if (e.target) e.target.style.opacity = '0.4';
-    }, 0);
-  };
-
-  const handleSidebarDragStart = (e, type) => {
-    dragType.current = type;
-    dragItem.current = null;
-    e.dataTransfer.effectAllowed = 'copy';
-    setTimeout(() => {
-      if (e.target) e.target.style.opacity = '0.4';
-    }, 0);
-  };
-
-  const handleDragEnter = (e, index) => {
-    e.preventDefault();
     dragOverItem.current = index;
+    setDraggedIndex(index);
     setDragOverIndex(index);
+    e.target.setPointerCapture?.(e.pointerId);
   };
 
-  const handleDragLeave = (e, index) => {
-    if (e.currentTarget.contains(e.relatedTarget)) {
-      return;
+  const handlePointerMove = (e) => {
+    if (dragCurrentIndex === null || !listRef.current) return;
+    const dy = Math.abs((e.clientY || 0) - (dragStartY || 0));
+    if (!isDragging) {
+      if (dy < 6) return;
+      setIsDragging(true);
     }
-    dragOverItem.current = null;
-    setDragOverIndex(null);
+    const list = listRef.current;
+    const items = Array.from(list.querySelectorAll('[data-field-index]'));
+    if (!items.length) return;
+    const pointerY = e.clientY;
+    const newIndex = items.findIndex((item) => pointerY < item.getBoundingClientRect().top + item.getBoundingClientRect().height / 2);
+    const overIndex = newIndex === -1 ? items.length - 1 : newIndex;
+    dragOverItem.current = overIndex;
+    setDragOverIndex(overIndex);
   };
 
-  const handleDragOver = (e, index) => {
-    e.preventDefault();
-    if (dragOverItem.current !== index) {
-      dragOverItem.current = index;
-      setDragOverIndex(index);
-    }
-  };
-
-  const handleDragEnd = (e) => {
-    if (e.target) e.target.style.opacity = '1';
-    
-    if (dragItem.current !== null && dragOverItem.current !== null && dragItem.current !== dragOverItem.current) {
+  const handlePointerUp = () => {
+    if (isDragging && dragItem.current !== null && dragOverItem.current !== null && dragItem.current !== dragOverItem.current) {
       const newFields = [...fields];
       const draggedItemContent = newFields.splice(dragItem.current, 1)[0];
       newFields.splice(dragOverItem.current, 0, draggedItemContent);
       setFields(newFields);
-    } else if (dragType.current !== null && dragOverItem.current !== null) {
-      const newFields = [...fields];
-      newFields.splice(dragOverItem.current, 0, {
-        id: Math.random().toString(36).substr(2, 9),
-        type: dragType.current,
-        label: dragType.current === 'radio' ? 'What is your choice?' : 'Your question here...',
-        required: false,
-        options: dragType.current === 'radio' || dragType.current === 'select' ? ['Option 1', 'Option 2'] : []
-      });
-      setFields(newFields);
     }
-    
+    setIsDragging(false);
+    setDragStartY(null);
+    setDragCurrentIndex(null);
     dragItem.current = null;
     dragOverItem.current = null;
-    dragType.current = null;
     setDragOverIndex(null);
     setDraggedIndex(null);
   };
+
+  useEffect(() => {
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+    };
+  }, [isDragging, dragStartY, dragCurrentIndex, fields]);
 
   const addField = (type = 'text') => {
     const newField = {
