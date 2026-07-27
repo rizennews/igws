@@ -67,7 +67,7 @@ JSON Schema format to follow strictly:
 }`;
 
     const message = (currentFields && Array.isArray(currentFields) && currentFields.length > 0)
-      ? `Apply this edit request to the existing fields list (add, remove, or modify fields accordingly) and return the updated complete array: "${prompt}".\n\nExisting fields: ${JSON.stringify(currentFields)}`
+      ? `Apply ONLY the requested change to the existing fields list. DO NOT repeat or duplicate existing fields. Add, remove, or modify only what is asked. Return the final merged array with duplicates removed: "${prompt}".\n\nExisting fields: ${JSON.stringify(currentFields)}`
       : `Generate a new form schema based strictly on this request: "${prompt}"`;
 
     const response = await fetch('https://api.cohere.com/v1/chat', {
