@@ -322,19 +322,24 @@ export default function FormEditor({
         throw new Error(data.error || 'Failed to generate form.');
       }
       if (data.fields && data.fields.length > 0) {
-        // Parse position from prompt: "add a field for name at number 2" or "insert at position 2"
-        const positionMatch = aiPrompt.match(/(?:at\s+(?:number\s+)?|position\s+)(\d+)/i);
-        if (positionMatch) {
-          const position = Math.max(0, Math.min(parseInt(positionMatch[1]) - 1, fields.length));
-          const newFields = [...fields];
-          newFields.splice(position, 0, ...data.fields);
-          setFields(newFields);
-          setActiveStepIndex(position);
+        const deduped = data.fields.filter(f => !fields.some((existing, idx) => existing.label === f.label && existing.type === f.type));
+        if (deduped.length === 0) {
+          setAiError('No new fields were added. They may already exist.');
         } else {
-          // Append to end if no position specified
-          const newFields = [...fields, ...data.fields];
-          setFields(newFields);
-          setActiveStepIndex(fields.length);
+          // Parse position from prompt: "add a field for name at number 2" or "insert at position 2"
+          const positionMatch = aiPrompt.match(/(?:at\s+(?:number\s+)?|position\s+)(\d+)/i);
+          if (positionMatch) {
+            const position = Math.max(0, Math.min(parseInt(positionMatch[1]) - 1, fields.length));
+            const newFields = [...fields];
+            newFields.splice(position, 0, ...deduped);
+            setFields(newFields);
+            setActiveStepIndex(position);
+          } else {
+            // Append to end if no position specified
+            const newFields = [...fields, ...deduped];
+            setFields(newFields);
+            setActiveStepIndex(fields.length);
+          }
         }
         setAiPrompt('');
       } else {
